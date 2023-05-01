@@ -1,0 +1,1832 @@
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+A 0.46-THz 25-Element
+Radiator Array With Op
+in 65-nn
+
+Hossein J alili®. Member, IEEE, and (©
+
+Abstract—In this article, we present a 438-479-GHz fully
+integrated 25-element radiator array source based on a scalable
+structure of coupled standing wave oscillator cells without extra
+loss and parasitics from coupling networks. The bandwidth is
+extended using a varactor-less frequency tuning method, and
+EIRP is improved by increasing the size of the array using the
+proposed scalable coupling method and maximizing the radiation
+directivity using a silicon lens in an optimized radiation setup.
+An analysis of the radiation directivity of a chip-lens setup is
+presented as well as the employed approach for enhancing EIRP
+by maximizing the directivity. The circuit is implemented in a
+65-nm CMOS process and is measured to have 40.7 GHz/8.9%
+frequency tuning range. The chip consumes 0.38—2.34-W power
+(1.18 W at 459-GHz center frequency) from a 1.2-V supply
+voltage. The circuit provides a maximum of —1.8-dBm radiated
+power and 19.3-dBm EIRP at 448 GHz using a 12.5-mm radius
+silicon lens. The minimum measured phase noise at 10-MHz offset
+is —100.6 dBc/Hz. To the best of our knowledge, this article has
+the largest EIRP, radiated power, and bandwidth among fully
+integrated silicon-based coherent sources above 350 GHz.
+
+Index Terms— Coherent source, harmonic voltage controlled
+oscillator (VCO), millimeter-wave (mm-wave)/terahertz (THz),
+on-chip antenna, radiator array, silicon lens, standing wave, THz
+radiation, varactor-less frequency tuning, wideband.
+
+I. INTRODUCTION
+
+HE millimeter-wave (mm-wave)/terahertz (THz) spec-
+
+trum offers promising potentials [1], [2] in various appli-
+cations such as spectroscopy [3]-[5], imaging [6]—[10], radar
+[11], [12], and high-speed communication [13]-[16]. Imple-
+menting such systems in reliable low-cost silicon technologies
+requires sources that are capable of producing sufficient power
+levels in a wide bandwidth. However, several challenges
+need to be overcome in this endeavor. As we move toward
+the mm-wave/THz band, the maximum oscillation frequency
+(fmax) Of the process limits the power that can be generated
+by transistors. At the same time, losses of passives in the
+circuit increase and poor quality factor of varactors restricts
+the frequency of operation and tuning range. Fig. | shows
+
+Manuscript received November 3, 2019; revised January 18, 2020 and
+March 25, 2020; accepted April 20, 2020. Date of publication May 8,
+2020; date of current version August 26, 2020. This article was approved
+by Associate Editor Kenichi Okada. This work was supported by the
+National Science Foundation under Award 1454732. (Corresponding author:
+Hossein Jalili. )
+
+The authors are with the Department of Electrical and Computer Engi-
+neering, University of California at Davis, Davis, CA 95616 USA (e-mail:
+hjalili@ucdavis.edu; omomeni @ucdavis.edu).
+
+Color versions of one or more of the figures in this article are available
+online at http://1eeexplore.ieee.org.
+
+Digital Object Identifier 10.1109/JSSC.2020.2989897
+
+0018-9200 © 2020 IEEE. Personal use is permitted, bu
+See https://www.ieee.org/publications/r
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+2387
+Scalable and Wideband
+timized Lens Integration
+1 CMOS
+ymeed Momeni, Senior Member, [EEE
+RFIC18@
+ISSCC16
+=e JSSC15
+A This Work
+J JSSC13 mJSSC15 *
+8 JSSC19
+al JSSC12 i- [Ss mRFIC17
+TMT1T16
+TMT1T18@
+JSSC19™
+200 250 300 350 400 450 9500 = 550
+frequency (GHz)
+Fig. 1. Overview of the published radiated power levels among
+
+state-of-the-art integrated coherent sources in silicon.
+
+an overview of the reported levels of radiated power (Praq)
+among published state-of-the-art coherent sources in silicon
+technology and illustrates the increasing challenge of power
+generation and radiation as we approach the THz spectrum.
+
+Frequency multipliers [17]-[19] and harmonic oscilla-
+tors [20]-[32] are the main solutions for reaching frequencies
+above fmax of the transistors. However, multipliers are gener-
+ally more power hungry and less efficient. An array of coherent
+harmonic oscillators [5], [6], [20]-[27] is often employed in
+order to improve the output power level. Scalability and the
+level of extra loss and parasitics penalties are important factors
+in the choice of the array structure. Various techniques have
+been used in the published literature to synchronize the sources
+within an array. Extra quadrature oscillators are used in [5]
+to couple the main oscillators of the source. These coupling
+oscillators add to the parasitics and power consumption of
+the circuit but do not contribute to the radiated power. In [6],
+passive coupling is used for oscillators in each row of the array
+and individual rows are synchronized through phase locking to
+a reference signal by incorporating a phase-locked loop (PLL).
+Wireless subharmonic injection locking technique is employed
+in [20] which requires an additional fundamental frequency
+(100 GHz) external radiation source. In [26], a reference signal
+is symmetrically routed and used for injection locking of the
+sources in the array after going through phase-shifting and
+multiplication stages. We previously demonstrated in [25] the
+potential advantages of employing a standing wave oscillator
+(SWO) for scalable and wideband THz power generation.
+
+As the frequency approaches the THz spectrum, the dimin-
+ishing size of the antennas as well as the increasing loss of
+
+t republication/redistribution requires IEEE permission.
+ights/index.html for more information.
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2388
+
+fro
+
+=
+h=3.815 p
+
+(a)
+
+Fig. 2. (a) SWO UCell. (b) Implementation of the UCell including the integ1
+
+off-chip power extraction both enable and force us to employ
+on-chip antennas for direct radiation of the output power.
+However, there are important challenges in implementing
+integrated planar antennas. The low-resistivity silicon substrate
+traps a major part of the radiation energy inside it through
+excitation of surface waves. This can significantly degrade
+the radiation efficiency of on-chip antennas [33]—[35]. Several
+solutions have been proposed and implemented in the literature
+to address this issue. Using a ground plane to isolate the
+antenna from the lossy substrate is one possibility [22]—[25].
+However, the small thickness of back-end oxide layers limits
+the performance of these antennas. In this case, directivity (D)
+and efficiency can be improved by incorporating a superstrate
+on top of the chip [8], [36]. Alternatively, substrate-thinning
+can be used to prevent the substrate from supporting the
+excitation of lossy surface waves [26]. Using a silicon lens
+is another method for back-side radiation from the chip [5],
+[6], [19], [29], [30]. Attaching a silicon lens to the substrate
+significantly improves the directivity as well as increasing the
+radiation efficiency by suppressing the surface waves in the
+substrate. Despite its popular use, the radiation behavior of
+an array in a chip-lens configuration has not been adequately
+explored.
+
+In this work, we implemented a wideband high-EIRP source
+by employing a scalable array structure whose dimensions
+can be extended without introducing extra parasitics or losses
+to the circuit. SWO unit cells (UCells) are employed as the
+array building blocks and are coupled together without added
+passive loss or parasitics in a scalable structure. A varactor-
+less frequency tuning mechanism is used to extend the circuit
+bandwidth. The EIRP is increased by both raising the total
+power that is delivered to the antennas and the array’s radiation
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+M previous
+
+GUE
+MLEEY
+
+2xM
+
+_ to next cell) |
+
+(b)
+
+‘ated folded slot antenna.
+
+gain. Praq 18 boosted by increasing the size of the array using
+the proposed scalable structure and directivity 1s maximized
+by employing a wideband on-chip antenna with a silicon lens
+in an optimized radiation setup. We demonstrate in this article
+that the physical choices for the lens-based radiation setup
+have a significant impact on the directivity and EIRP of the
+circuit.
+
+In this article, Section II describes the UCell of the array as
+well as the employed scalable coupling method and the struc-
+ture of the implemented array. The design of the integrated
+antenna and characteristics of the lens-based radiation setup
+are discussed in Section III. The experimental results of this
+article are presented in Section IV, and Section V brings this
+article to a conclusion.
+
+Il. ARRAY STRUCTURE AND DESIGN
+
+The implemented array consists of SWO UCells that are
+coupled together in a continuous and scalable structure with
+no extra coupling loss and integrated antennas for radiation of
+the generated coherent THz power. This section describes the
+UCell of the array circuit as well as the employed scalable
+coupling scheme.
+
+A. Array’s UCell
+
+Fig. 2(a) and (b) shows the schematic and implementation
+structure of the array’s UCell, respectively. It consists of a
+harmonic SWO and a folded slot antenna for radiation of the
+extracted fourth harmonic power through the back side of the
+chip. The operation principle of the UCell’s SWO is similar
+to that described in [32]. However, unlike [32], the UCells are
+coupled together in a way that makes it possible to construct a
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+JALILI AND MOMENT: 0.46-THz 25-ELEMENT SCALABLE AND WIDEBAND RAL
+
+(Req) | (mS)
+
+80 90 100
+(
+175
+—O=— \/
+150 —s— \/
+125
+
+Py [UCell] (mW)
+
+0
+400 500 600 700 800 900 1000 1100 435 440 445
+Vg (mV)
+
+(d)
+
+11
+f
+
+b)
+
+Z
+
+f
+(¢
+
+Fig. 3. (a) Equivalent circuit of the UCell at fundamental frequency (fo), (b
+at the gate of the transistor. Simulated (d) fourth harmonic frequency, (e) pow
+
+scalable array structure. We will discuss the coupling scheme
+in detail in Section II-B. Furthermore, the oscillator is designed
+to maximize the fourth harmonic power radiation through
+on-chip antennas instead of second harmonic probe-based
+extraction in [32].
+
+Out-of-phase fundamental frequency (fo) standing waves
+are formed on the gate transmission lines (TLg) which results
+in systematic cancellation of fundamental frequency power
+and all its odd harmonics. This creates virtual ground planes
+across the lines of symmetry in the circuit at fo and its
+odd harmonics. Fig. 3(a) shows the equivalent circuit of
+the SWO at fo. The short-terminated drain transmission line
+(TLp) creates an inductive drain impedance. The transistors
+with inductive drain impedance provide the necessary negative
+resistance (R.q) for oscillation at their gate terminals. Fig. 3(b)
+shows the simulated (R.,)~' in the SWO circuit. The transis-
+tors are placed at the anti-nodes of the TLg standing waves
+and therefore experience the maximum oscillation amplitude
+at their gate terminals. The harmonics of the fundamental
+frequency are therefore generated through the nonlinearity of
+the transistors. In addition to loss compensation and harmonic
+generation, transistors are used as active variable capacitors
+for frequency tuning in order to avoid the unwanted loss and
+parasitics of varactors. Looking at the resonance circuit at
+node X in Fig. 3(a), the negative resistance of the transistor
+(Req) cancels the losses in the circuit (modeled here by a
+lumped resistor Rj oss) and the frequency of oscillation 1s
+determined by the input capacitance of the transistor (Ceq)
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded
+
+ATOR ARRAY WITH OPTIMIZED LENS INTEGRATION 2389
+
+Fundamental
+frequency (f,)
+
+0 120 130
+(GHz)
+
+|
+
+eq
+
+x
+c
+o-
+=
+S
+S
+WN
+
+Coq (fF)
+
+<Q
+
+140 150 80 90 100 110 120 130 140 150
+
+f (GHz)
+(Cc)
+
+=1.5V —O— V > =1.2V
+=1V —e—V,=0.8V
+
+€
+mM
+L
+aaa >
+O
+=
+ee ee $s
+Oo
+le Oo
+"O-0-0-0-~0-9_-5_,
+150 455 460 465 435 440 445 450 455 460 465 4/70
+(GHz) f (GHZ)
+») (f)
+
+) simulated negative resistance [CReeg) "I, and (c) simulated capacitance (Ceq)
+er consumption, and (f) output power of the UCell.
+
+O
+
+nN
+
+and the inductance of The (Leq). Therefore, the frequency
+of operation can be altered by changing the gate bias (Vc)
+of the transistor and therefore varying the capacitor in the
+oscillator’s resonance circuit. Fig. 3(c) shows the simulated
+Ceq for different gate bias levels from 0.35 to 1.1 V in the
+circuit. It can be seen in Fig. 3(b) that Rg remains negative for
+this range of Vg values. The Vg bias voltage is applied at the
+nodes of the standing waves with zero fundamental frequency
+amplitude, thus avoiding any unwanted loading effect of the
+bias circuitry on the ac operation of the circuit. We have
+previously presented a detailed analysis of the operation of
+the SWO and the employed frequency tuning mechanism for
+a SiGe HBT implementation in [25].
+
+Due to the out-of-phase formation of standing waves on
+the top and bottom TLg, the phases of fundamental frequency
+oscillation at transistors’ gates are either O° or 180°. This is
+shown in Fig. 2(a). This means that while the fundamental fre-
+quency power and its odd harmonics cancel out, the generated
+even harmonics are in phase and add up constructively. The
+desired fourth harmonic (4/09) powers are combined and fed
+to the on-chip folded slot antenna for radiation. The second
+harmonic radiation is suppressed by the input matching and
+radiation efficiency of the antenna at that frequency. The
+detailed characterization of the integrated antenna 1s presented
+in Section III.
+
+Fig. 2(b) shows the implementation detail of the array’s
+UCell. The TLg and TLp transmission lines are implemented
+using top AP metal layer and M9 metal layer microstrips,
+
+May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2390
+
+—— Sa
+7 7
+
+/ N / XN
+/  (P=H80y “(p= 07} > =i
+NX 7
+
+~—- Se
+Link TL
+SSE |
+" TL_I " TL I
+
+, BL_II r I
+
+Link BL
+. LEDs
+"(GE T80 py “lp = 07}.
+\
+7
+N\
+
+~~
+
+To Next Row
+
+Fig. 4. (a) Coupling scheme and (b) scaling of the array using the proposed
+
+respectively. The antenna, its feed line, and the //4-line
+(at 4 fo) that is used to apply the supply voltage (Vpp) are
+implemented by the top AP layer. Universal gnd and Vpp
+planes are implemented using M3 and M2 metal layers,
+respectively. The top and bottom TLg transmission lines
+are terminated on opposite sides by capacitor C7. Ideally,
+we require this capacitor to be large enough to create a
+close-to-short impedance while being insensitive to process
+variations. An imbalance between Cy magnitudes on opposite
+sides of TLg can create an unwanted phase error and reduce
+the output power. Therefore, the top and bottom Cy are
+implemented as large M1-M2 parallel-plane capacitors that
+each occupy half the area underneath the UCell. The UCell
+circuit is laid out in a way so as to create the necessary space
+for the integrated antennas between cells while preserving
+symmetry and minimizing the routing path loss of the output
+power. The entire structure of the SWO is electromagneti-
+cally simulated altogether and used in the design process.
+Fig. 3(d)—(f1) shows the simulated fourth harmonic frequency,
+power consumption, and output power (delivered to the
+antenna) of the SWO UCell.
+
+B. Array Structure: Coupling and Scaling
+
+The EIRP of the THz source can be increased by either
+increasing the transmit power (P;) generated by the circuit or
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded
+
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+—~
+
+/ N
+} le = 180°” |p = 0°} lp = 180°)7°
+N / X /
+
+Link TR
+
+4 TRI TR _Il
+
+a. X BRI ,
+
+Link BR
+a
+“l9= 0}.
+
+Ss
+
+)
+
+method.
+
+increasing the gain (G,) of the radiation structure since
+EIRP (dBm) = P; (dBm) + G, (dB)
+= P, (dBm) + D; (dB) + era (dB) = (1)
+
+where D,; and @;aq are the transmitter’s overall directivity and
+radiation efficiency, respectively. We will discuss our approach
+to maximizing G, in detail in Section III. The transmit power
+(P,;), on the other hand, can be improved by increasing the
+number of coupled UCells and forming an array of sources
+that generate in-phase THz power. This coupling also has a
+desirable effect in reducing the phase noise of each individual
+oscillator [37]. Oscillators are often coupled together using
+passive elements. However, these coupling networks come
+with losses and parasitics that negatively affect the frequency
+of operation, tuning range, and output power of the UCell. Our
+approach in this work avoids extra loss and parasitics by using
+a new continuous and scalable method of extending the array
+size in 2-D while maintaining coherency of the generated THz
+power.
+
+Fig. 4(a) illustrates the operation principle of the employed
+coupling method. Here, the bottom middle link (Link BM) acts
+as a bridge between the top left and right links (Link TL and
+Link TR) and maintains 0°/180° phase relation between them
+even though Link TL and Link TR are not directly coupled
+together. A two-wavelength standing wave is formed on the
+gate transmission line in Link BM which enforces 0°/180°
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+
+O
+JALILI AND MOMENI: 0.46-THz 25-ELEMENT SCALABLE AND WIDEBAND RAL
+
+Rl AW
+
+Hinge-CellC _:
+
+%
+A
+
+.
+
+L
+‘
+L
+
+3
+
+ae
+x
+Vv
+
+S
+
+1 cm
+Dummy-Cell B 1" ca [1
+Vop or. ners, eS
+neal +1
+
+Fig. 5. Full structure of the implemented array.
+
+phase operation on the transistors in Link BM. At the same
+time, half of Link BM (BM_I) 1s coupled to Link TL and the
+other half (BM_II) to Link TR using TLp transmission lines.
+This ensures that TL_II and TR_I are out of phase since BM_I
+and BM_II have to be out of phase. If we continue with this
+structure, Link TL and Link TR will, in turn, preserve the same
+phase relationship between Link BM and its adjacent Links on
+the left and right sides (Link BL and Link BR), respectively.
+We can therefore extend the array to our desired size in a row
+without adding any extra passive elements to or between the
+UCells.
+
+Since the top and bottom halves of the row are shifted by
+one wavelength relative to each other, there will be “half-cells”
+on both sides of the row whose TLp lines are left uncoupled.
+Therefore, our next step 1s to extend the size of the array in
+the second dimension using these “half-cells” as hinges that
+couple successive rows together. This is shown in Fig. 4(b)
+where two rows are coupled together using the “hinge” cell
+on the right. Similarly, other rows can be added before or after
+these two rows by coupling them to half-cells on the left side
+of the structure. Therefore, we can scale both the number
+of columns (by extending the rows) and rows (by coupling
+multiple rows) in the array to our desired size without adding
+any coupling loss or parasitics to the circuit and maintain
+the 0°/180° phase relationship for fundamental frequency and
+coherent fourth harmonic power generation and radiation.
+
+Fig. 5 shows the full structure of the implemented array.
+The integrated antennas are placed in the empty spaces that
+are specifically created for this purpose by laying out both
+gate and drain transmission lines diagonally. We should point
+out that this area is sufficiently large for a patch antenna at
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+ATOR ARRAY WITH OPTIMIZED LENS INTEGRATION 2391
+
+Hinge-Cell A
+
+Hinge-Cell B
+
+0.46 THz as well. Therefore, the folded slot antennas can be
+potentially replaced by patch antennas in case lens-less front-
+side radiation is desired instead. The core of the circuit consists
+of a 4 x 5 array and “hinge-cells’” A, B, and C couple the
+rows together. “Dummy-cells” A and B are unavoidable at
+the beginning and end of the continuous structure but will
+not increase in number regardless of the size of the entire
+array. Since these dummy cells are not facing another half-
+cell, the drain transmission lines are coupled together. We do
+not expect any significant mismatch effect because of these
+dummy cells.
+
+II. INTEGRATED RADIATION STRUCTURE
+
+Silicon lenses are often used in THz sources to minimize the
+surface wave losses in the substrate and concentrate the radi-
+ated power into narrow beams, thereby increasing the radiation
+gain and hence EIRP [38], [39]. In this section, we explore the
+behavior of the on-chip antenna/array and Si lens configuration
+and present the optimum physical conditions for this radiation
+mechanism that can maximize EIRP.
+
+A. Single Antenna + Lens Radiation
+
+We have employed folded slot antennas for radiation of
+the THz power through the substrate and silicon lens. This
+choice offers several benefits including high directivity that
+directly increases the EIRP of the source and large bandwidth.
+Furthermore, the slot structure of the antenna minimizes the
+negative impact of the necessary local density filling cells
+on the radiation efficiency of the source. Fig. 6(a) shows the
+attachment configuration of the silicon lens with radius Rjens
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2392
+
+L ay Rigs Lssil
+0.06 0.16 0.26 0.36 046 0.56 0.66 0.06 0.16 0.26 O..
+35 40
+optinum <é—
+30
+m 25
+J
+:
+a 20
+15
+10
+00 O05 10 15 20 2.5 3.0 0.0 05 1.0 1.
+Lav (mm) i (
+(e) (f
+
+Fig. 6. (a) Substrate radiation through silicon wafer and lens configuration.
+water thickness. (d) Simulated radiation pattern for 1500-42m wafer thickness.
+the folded slot antenna for different values of Lext. (g) Simulated Dmax versus
+
+to the chip’s substrate using an intermediate silicon wafer
+with thickness L,,,. The thickness of the wafer acts as an
+extension length to the lens. In this section, we discuss how
+the directivity of the antenna can be maximized by proper
+choices of extension length (Lext) and size of the lens (Riens).
+
+In order to observe the effect of L,.,, on the radiation
+behavior of the antenna, we simulated the same folded slot
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+IEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+X/ ens Rad - -
+lens * MM —#— R,.,,=0mm —®— R,.,s=6mm
+
+36 0.46 0.56 0.66
+
+O Cad
+Q —o- Gmax
+
+5
+
+5 20 25 3.0 0.0 05 1.0 15 20 25 3.0
+mm) Laxt (mm)
+
+) (g)
+
+(b) Antenna simulation in HFSS. (c) Simulated radiation pattern for 150-um
+Simulated (e) Dmax (maximum directivity) and (f) é-aq (radiation efficiency) of
+extension length for different lens sizes.
+
+antenna with identical lenses (Riess = 5 mm) but with
+different values of Lext in HFSS 3-D EM simulator [Fig. 6(b)].
+Fig. 6(c) and (d) shows the radiation patterns of the antenna
+for Lexy = 150 um and Let = 1.5 mm, respectively. We
+can see that the beam is significantly narrower and more
+concentrated with Lex; = 1.5 mm compared to Lexy, = 150 um.
+This shows that the choice of L.,,; value has a considerable
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+JALILI AND MOMENI: 0.46-THz 25-ELEMENT SCALABLE AND WIDEBAND RAL
+
+Dray x Gnas (dBi)
+
+Fig. 7. (a) Simulated maximum directivity (Dmax), Maximum gain (Gmax), and
+for Lext = 1.5 mm and Rjens = 5 mm. (b) Simulated bandwidth ($;,) of the a
+of the UCell (Zour) [See Fig. 1(a)] for Lexe = 1.5 mm and Rjens = 5 mm from
+
+Z ai 345 9 45
+
+15- 225 S| oa
+] 210 “~L_, | , 3} 150
+195 49) 165
+
+210 “~L_, | , \~
+195 4e5 165
+
+Fig. 8. Simulated radiation patterns of a 4 x 4 folded slot antenna array wit
+
+impact on the directivity and hence EIRP of radiation. It
+has been shown in [39] that La. ~ 0.36 x Rien, results in
+maximum directivity. Fig. 6(e) and (f) shows the simulated
+Dyax (Maximum directivity), @;aq (radiation efficiency), and
+maximum gain (Gmax) of the folded slot antenna for different
+values of Lex, respectively. A maximum directivity of 31.9 dBi
+can be achieved with Ley, = 1.4 mm and Ley/ Rens = 0.34.
+It can be seen that there is about 17.1-dB difference between
+directivity with Lex, = 1.4 mm and Ley, = 0.3 mm.
+
+In addition to the choice of Lex, the size of the lens has an
+important effect on the radiation characteristic of the antenna.
+To explore the impact of the lens size, we simulated the folded
+slot antenna with three different lens sizes while sweeping Lex
+for each one of them. Fig. 6(g) shows the simulated maximum
+radiation directivity (Dmax) versus Lex for lens radii of 4,
+5, and 6 mm. It can be seen that the maximum directivity
+increases with the lens radius. Furthermore, the optimum value
+of Lex, changes with the lens size as well. This is consistent
+with our expectation of best Lex occurring at a constant
+Lext/ Riens. Based on the presented results, we can conclude
+that the directivity and EIRP of the source can be increased
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+ATOR ARRAY WITH OPTIMIZED LENS INTEGRATION 2393
+1.0)
+
+Log 1mm, Riens=5mm 0.9)
+
+Log= 1.0mm, R,,,,=9mmM .
+
+fs
+
+»(430-t0-480 GHz]
+
+Semi-infinite Si boundary | 0.2) / Q ~~ \ 5.0;
+“ye
+yo
+. (CS we
+od | “7
+7° = 7%
+450 500 550
+f (GHz)
+(b) (9)
+
+radiation efficiency (@;aq) of the employed folded slot antenna versus frequency
+ntenna. (c) Input impedance of the antenna (Zap) versus the output impedance
+430 to 480 GHz.
+
+345 0 15
+
+| | |
+| $80 a ta mK... 90 |]
+45 | be 315 D (dBi) 45 | sal 45 |
+© | «| = fi f oe 6S “|
+\ 75 | 197 285, ¢ \ L749 \ | ea \ 75 | ©
+4) pri es : ae bee cs
+| - 90 -35 1270 L | ! & an ae d 35 - 4 90 | AY)
+| 46 t 2 # | 25 a | Ln
+/ 105 Pr 255 \ | of ; | 15-4 105 Lu
+120 «| 2) a0 me J ii \ he 120 |
+| 5 * Aah } | 57 a
+135 £6 225 BATT YY ‘ 45,.| 135 |
+Z —T- | as. Pee IT x
+| 180 i
+| | 345 9 45 |
+20 207 woo) es, 36
+45 | bi 315 | oll 315 D (dBi) 45 |
+on 60 | “ 300 | | 300 i a 60 |
+\ | | S. SUnE 2 |
+\ 75 | 197) 285 b | 197) 985 L wy N Y “ \ 75 | =
+i es sce etm | 1S ? |, &
+| 90 | -35-270 | -35 1270 — a we of
+Joel 254 _.\ Jos) | OSS
+4 105 255 | 265° “dE OP oe 7 105
+/ 445 -15- \ TF he aS /
+/ , 5 | 54 \ a i ] -c
+OA 120 | 240 | ~4 240 5 120 |
+5 5
+135 | 4. 225 Lh AY | 46! 225 } 135 |
+0 210 ~~", OO 450 : 210 ~ LW” 450
+| 2s 195 —y 165 | 25- 4198 a. 165 | L
+ee eee $e ease Sa = Pe
+| Log=1MM | Leg=2MmM |
+
+1 Riens = 5 mm and Lex, = 150 “wm, | mm, and 2 mm.
+
+n
+
+by using a larger lens while choosing the optimum Lex based
+on the employed lens size.
+
+As shown in Fig. 3(d), the UCell is capable of providing
+~30 GHz of tuning range and therefore the antenna behavior
+as a function of frequency is of interest. Fig. 7(a) shows
+the simulated maximum gain and directivity as well as radi-
+ation efficiency of the antenna as a function of frequency
+for Lexy m= 1.5 mm and Rep = 5 mm. The value of
+Lext 18 Chosen to be 1.5 mm instead of the optimum value
+of 1.4 mm since we had access to 0.5-mm-thick wafers during
+the measurement. Fig. 7(b) shows the input matching of the
+antenna with $;; below —10 dB within the bandwidth of the
+circuit. The simulation results presented in Fig. 7 are based
+on the simulation setup shown in Fig. 6(b). Modeling the Si
+wafer and lens as a semi-infinite silicon boundary condition
+underneath the chip substrate can reduce the simulation time
+and speed up the design process. However, the impedance
+simulation results deviate from the more realistic setup as
+shown in Fig. 7(b). Furthermore, the semi-infinite boundary
+condition predicts the radiation efficiency to be close to 50%,
+while the more accurate simulation in Fig. 7(a) shows the
+
+May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2394
+
+Led Riens L,
+0.06 0.26 0.46 0.66 0.06 0.26
+25 35
+20
+30
+ca 15 _
+- 0 25
+Q 10 ae
+S S
+co 5 2 20
+D max
+0
+—o— Dy 15
+-5
+0 1 2 3 0 1
+_— (mm) Le,
+(a) (b
+
+Fig. 9. (a) Simulated radiation directivity for the 4 x 4 antenna array ver
+4x 4 array with Rjens = 5 mm. (c) Simulated maximum directivity (Dax) foi
+
+Si lens
+
+Lens
+center
+
+E-Plane
+
+345 9 45
+To 30
+
+| 330 JT a ae
+Se 10 - 315 D (dBi)
+Si lens | 04 300 a4 ‘
+
+L
+
+210 ~~~L \—~ 150
+20 _ ee ee
+195 4eq 165
+
+(t
+
+| \ 4A x~:
+
+| f y re ® ® -
+
+| 0 240 Pee <a
+
+) 10- 225 alli or
+Y : | 7 |
+
+|
+
+|
+
+|
+
+|
+
+Fig. 10. Simulated radiation patterns of the folded slot antenna with Lexy =
+(a) Lais,x = 340 wm in the X-direction and (b) Lais,y = 320 um in the Y-dire
+
+efficiency to be roughly 32%. The output impedance of the
+UCell [Zou in Fig. 2(a)] 1s also matched to 50 Q and 1s
+shown in Fig. 7(c) versus the antenna impedance (Zan) for
+vext = 1.5 mm and Riens = 5 mm from 430 to 480 GHz.
+
+B. Antenna Array + Lens Radiation
+
+Even though many works in the literature use Si lens
+for THz array radiation [3], [5]-[7], [28], [43], the radia-
+tion characteristics of an array-lens configuration have rarely
+been explored. In order to maintain the generality of results,
+we present our analysis here based on a more conventional
+4 x 4 symmetrical array. This array consists of the same
+folded slot antennas with the same horizontal and vertical
+antenna spacings as the implemented array. Similar to the
+
+Authorized licensed use limited to: TUBITAK ULAKBIM.
+
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+xt/Riens
+0.46 0.66 OR, ons=4MM —O— RF; 6, 5=5MM = Ron 5=6MM
+—l— Single ant. 22
+—@®— 2x2 array
+—e— 4x4 array 20
+2
+So 18
+©
+E
+Q 16
+14
+12
+0 1 2 3
+Lot (mm)
+| (Cc)
+
+sus Lext with Rjens = 5 mm. (b) Dmax of a single antenna, a 2 x 2 and a
+r the 4 x 4 antenna array versus Ley; for Rjens = 4, 5, and 6 mm.
+
+\ |
+—| 90
+|
+7 105
+/ 120
+35
+\)
+H-Plane
+0 ee a
+345 15 . | “Se
+il 330 +r | "7. 30 ras ee oe os.
+oul 315 D (dBi) J ok a i a |
+10 - ! ff
+°° 0 - i, fy ft
+\ 104 / Ns eed
+4 75 | 285 f
+| tf
++ 90 -30 4270 +
+| 4 |
+| 20, |
+4 105 | 255
+/ -10 4 \ < 3
+/ 0 wd "2s aie
+Y 490 = h AN
+10 -
+) 20 - 225 iF,
+30 | Z 210 1 |g
+195 45 165
+Y
+»)
+
+1.5 mm and Rjens = 5 mm when it is displaced from the center of the lens by
+ction.
+
+case of a single antenna, we start by looking at the effect
+of Lext on the radiation behavior of the array. Fig. 8 shows
+the radiation patterns of the array with a 5-mm-radius lens and
+for three different values of extension lengths. As expected,
+similar to the single antenna, the choice of extension length
+plays an important role in determining the directivity and
+therefore EIRP of the source. Fig. 9(a) shows the maximum
+directivity (Dmax) and directivity at 0 = 180° (see Fig. 8)
+along the lens’s center axis (Do) for this 4 x 4 array for
+different values of Lex. The maximum directivity is equal to
+21.4 dBi at Lext = 2 mm. Fig. 9(b) compares the Dax for the
+scenarios of a single antenna, a 2 x 2 and a4 x4 array. We can
+see that the variations of Dmax with Lex; and the peak value
+of Dmax decrease as we extend the array. However, Dax can
+still be increased by 6.7 dB by simply changing Ley, from 150
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+
+Downloaded o
+JALILI AND MOMENI: 0.46-THz 25-ELEMENT SCALABLE AND WIDEBAND RAL
+
+Unit Cell
+
+‘ 3] A lish :
+
+WH
+SS
+
+. ,
+-
+=a
+3 }
+ae Dae
+
+“SEEGER TED Ph oe
+
+Dummy Cell
+
+2.43 m
+
+Fig. 11. Die photograph of the implemented prototype chip.
+
+WR10 W.G.
+
+EIRP, Pra
+
+WR2.2-WR10
+Taper
+
+WR2.2
+horn antenna
+
+| G,= wl dBi
+
+—- “ae
+f, rad. pattern,
+phase noise
+
+Changing
+ext
+
+(a) (b)
+
+Fig. 12. (a) Assembly configuration of the measured prototype systems. A
+attached to it from the front side of the PCB through the hole in the middle «
+lens and the wafer that is attached to the PCB. (b) Measurement setup that w:
+setup during the process of lens alignment using an XY translation mount dev
+
+um to 2 mm in a 4 x 4 array. We can also see in Fig. 9(a)
+that for most of the values of L.x4, Do is smaller than Dymaox.
+This means that if the lens is aligned with the center of the
+array footprint, the peak of the radiated beam will no longer
+be at 0 = 180°. This scenario is clearly shown in the case of
+Lext = 150 um in Fig. 8.
+
+The maximum array directivity (Dmax) of the 4 x 4 array
+with Rjens = 5 mm and L,,, = 2 mm is 21.4 dBi, while Dyax
+of a single antenna with the same Rien, and Lexy = 1.4 mm 1s
+31.9 dBi. In other words, counter-intuitively, the radiation gain
+decreases when the lens is fed by an array of antennas rather
+than a single one. In a conventional lens-less radiation setup,
+the directivity would increase by 10log(NV), where WN is the
+number of array elements. Furthermore, a similar increase in
+the total transmit power (P;) gives a net increase of 20log(V)
+to the EIRP. In this case, however, directivity has dropped
+by 10.5 dB instead even though the number of antennas and
+the total transmit power is increased by 12 dB. In other
+words, we have increased P, at the expense of array gain
+and we, therefore, do not observe the double boosting effects
+of array formation on both power and gain. The maximum
+radiation gain of the 4 x 4 folded slot antenna array with
+lens at Lex = 2 mm and Ri, = 5 mm is about 15.6 dBi.
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+ATOR ARRAY WITH OPTIMIZED LENS INTEGRATION fe
+
+Hinge Cell
+
+‘y
+
+eat a3
+
+en
+
+Signal _ — a =
+wu 6 Generator | en —
+= 7, \ K
+
+‘Spectrum Analyzer
+
+= . ,
+O — Vg ‘4
+yo Spectrum : = yy a
+= Analyzer ~~. Le
+
+ee VP ANVR2.2 even harmonic .
+jl™ (EHM) —_
+ZZ
+
+(C)
+
+0.5-mm-thick wafer is attached to the back side of the PCB, and the chip is
+yf the board. Lext 1s altered by changing the number of wafers between the Si
+as used for the characterization of the chip’s performance. (c) Snapshot of the
+ice.
+
+A designed 4 x 4 patch antenna array with the necessary
+local metal fillings underneath the antenna has a maximum
+gain of about 12.4 dBi. Therefore, employing a lens-coupled
+radiation structure is still beneficial despite the drop in the
+directivity. Furthermore, we go on to demonstrate here that
+the magnitude of this drop in directivity can be reduced by
+increasing the size of the lens.
+
+The reason for the drop in the gain of the array compared
+to a single antenna is rooted in the positions of array elements
+relative to the center of the lens. The simulation results
+presented in Section III-A were all based on the assumption
+that the center of the antenna is perfectly aligned to the center
+of the lens. In an array, however, even if the lens is perfectly
+aligned with the center of the array’s footprint, most of the
+array elements would have an off-axis displacement (Lgis)
+relative to the lens center. Therefore, if we look at each antenna
+in the array individually, they would have different radiation
+patterns from each other and from the ideal aligned case. The
+effect of this displacement for a single antenna is studied
+in [40] and it has been shown that this misalignment results
+in steering of the radiation beam. This phenomenon has been
+intentionally exploited in [41] to perform beam steering by
+mechanically moving the lens relative to the source antenna.
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2396
+
+—o— d=64mm
+—o— d=114.8r
+
+50
+- |»
+faa
+=)
+at 55 SS
+60 —
+05 1.0
+
+Fig. 13. (a) Measurement setup used for finding the optimum value of Lext, |
+Riens = 5 mm Si lens. (b) Received power levels for different values of Lex a
+(c) Normalized received power levels for Rjens = 5 mm and Lexy = 1.5 mm
+field distance of approximately 14 cm. Measured radiation patterns of the a1
+
+and d = 14 cm.
+
+—=— d=/1.5m
+—— d=122.3n
+—e— d=173.1n
+
+P.. (dBm)
+
+Fig. 14. (a) Measurement setup used for finding the optimum value of Let, |
+Riens = 12.5 mm Si lens. (b) Received power levels for different values of Lex,
+(c) Normalized received power levels for Rjens = 12.5 mm and Let = 2 1
+far-field distance of approximately 20 cm. Measured radiation patterns of the
+
+and d = 20 cm.
+
+Here, we have studied the effect of this behavior on the gain
+of a lens-based antenna array. Fig. 10 shows the deviation of
+radiation beam from the center when the antenna is misaligned
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+—=— d=89mm
+
+nm —e— d=140.2mm Let = 1.5mm
+
+R,... =) mm
+
+lens
+
+—O— Meas.
+- 0 -Friis Eq.
+
+P.. [Normalized]
+
+15 2.0 2.5 3.0 75 100 125 150 175 200 225
+Ly (mm) d (mm)
+(b) (C)
+
+far-field distance, and characterizing the radiation patterns of the source with a
+t increasing distances, showing maximum level at far-field for Lext = 1.5 mm.
+versus distance and compared to Friis transmission equation, showing a far-
+‘ray source in (d) E- and (e) H-planes for Rjens = 5 mm, Lexy = 1.5 mm,
+
+n —e— d=96.9mm
+aM —y— d=147.7mm L
+am —— d=198.5mm
+
+ext = 2mm
+Riens = 12.5 mM
+
+\
+)
+a - OG -Friis Eq.
+
+P.. [Normalized]
+
+15 20 25 3.0 120 140 160 180 200 220 240
+L xt (mm) d (mm)
+(b) (Cc)
+
+oe
+
+far-field distance, and characterizing the radiation patterns of the source with a
+- at increasing distances, showing maximum level at far-field for Lex, = 2 mm.
+nm versus distance and compared to Friis transmission equation, showing a
+array source in (d) E- and (e) H-planes for Rjens = 12.5 mm, Lexy = 2 mm,
+
+by Laisx. = 340 wm and Lgisy = 320 um in the x- and
+y-directions, respectively. The 340- and 320-im distances are
+also the antenna spacings in the simulated and implemented
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+JALILI AND MOMENT: 0.46-THz 25-ELEMENT SCALABLE AND WIDEBAND RAL
+
+Vpp=1.2V: —#— Meas.,
+
+15
+
+EIRP (dBm)
+=)
+
+O1
+
+400 600 800 1000 1200 030 440 450
+Ve (mV) f
+
+(a) (t
+
+3.0 -90
+—?e— Meas., V5p=1V
+2.5 —s— Meas., Vpp=1-2V. N
+_ 2.0 mm -95
+= 2
+1.5 ~
+© N
+a <
+QO.
+1.0 = -100
+oc
+0.5 a
+0.0 -105
+430 440 450 460 4/70 £4480
+
+f (GHz) :
+(d) (e
+
+Fig. 15. (a) Measured and simulated frequency of the source. (b) Measured
+based on the simulated values for the output power of a single UCell, the radi
+with Lex, = 1.5 mm and Rien, = 5 mm. (c) Measured EIRP for Rien, = 12.5 n
+at 10-MHz offset frequency within the tuning range of the circuit, and (f) meé
+
+antenna array. It can be seen that the beam steers away from
+the center axis in the E- and H-planes as the antenna is mis-
+placed in the x- and y-directions, respectively. The radiation
+patterns of the antennas that are further away from the center
+of the array experience even larger deviation from the center.
+Therefore, different antennas in the array are radiating the
+power in different directions. This behavior has an important
+and undesirable effect on the maximum directivity and EIRP
+of an array source with a lens. The radiation pattern of the
+array is determined by the superposition of radiation patterns
+of individual antennas with different displacements relative to
+the center of the lens. So, unlike a lens-less array, the gain from
+each antenna 1s not maximum at 0 = 180°. Therefore, not only
+the array directivity does not increase with 1Olog(V) but also it
+drops compared to the single-antenna case. This phenomenon
+is inevitable in a lens-array setup. However, we expect that
+its effect can be minimized by increasing the lens size (Riens)
+since the steering angle of an individual antenna is directly
+related to its relative displacement Lgis/Rjens [40]. In order
+to verify this, we simulated the folded slot antenna for three
+different lens sizes. The result is shown in Fig. 9(c) with
+Dmax = 19, 21.4, and 22.2 dBi for Re, = 4, 5, and 6
+mm, respectively. The feasibility of simulation of larger lens
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+ATOR ARRAY WITH OPTIMIZED LENS INTEGRATION 2397
+
+] _
+lensz= OMIM
+
+ane=ap>mm : Fit. Curve
+
+lens
+1st OMmM
+
+=12.5mm
+=12.5mm: Fit. Curve
+
+@ Meas., R
+Meas., R
+
+lens
+
+lens
+
+EIRP (dBm)
+
+460 4/70 480 430 440 450 460 4/70 480
+
+(GHz)
+)
+
+f (GHz)
+(c)
+
+@ ®@ WN
+e--- <=
+, O
+7 faa]
+7 @ oS
+7
+oe B
+rc fo)
+z
+0)
+—”
+©
+£
+oO.
+A60 A70 A480 1 2 3 4 5 67 8910
+F (GHz) Offset freq. (MHz)
+
+)
+
+(f)
+
+and simulated EIRP for Rjens = 5 mm. The simulation results are estimated
+ation efficiency of the folded slot antenna, and the directivity of a 4 x 4 array
+1m, (d) measured and simulated power consumption, (€) measured phase noise
+isured phase noise spectrum at 445 GHz.
+
+sizes 1s restricted by the available processing power. However,
+we can conclude from Fig. 9(c) that using a larger Si lens can
+increase the EIRP of the source by increasing the maximum
+directivity of a single antenna [as shown in Fig. 6(g)] and also
+minimizing the unwanted steering due to the misalignment of
+array elements with the lens.
+
+To summarize, the wrong choice of Lex, can easily result
+in much lower EIRP than potentially possible from the same
+circuit. This is particularly significant since power genera-
+tion at mm-wave/THz spectrum is quite costly. Furthermore,
+increasing the size of the array without increasing the size
+of the lens accordingly can actually be counter-productive
+for EIRP, which would mean a larger chip area and higher
+power consumption with no or even negative impact on the
+performance.
+
+IV. EXPERIMENTAL RESULTS
+
+The chip prototype of the array source was fabricated
+through a 65-nm CMOS process with fmax = 340 GHz.
+Fig. 11 shows the chip photograph of the entire array as
+well as magnified views of the UCell, hinge cell, and dummy
+
+cell. The circuit occupies a total area of 2.43 x 1.62 mm’.
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2398
+
+TAB
+COMPARISON WITH T-.
+
+Freq.
+
+Arr a B
+Sine Structure Radiation | chin Tuning steerin
+Range (%) :
+This Continuous Slot 5mm
+2 4 9!
+Work ° Coupled Osc. Ant. + Riens= °? 89 0
+Si Lens 12.5 mm
+JSSC19
+rea owes | ee *
+TMTT18 Continuous
+1x4 Patch Ant. 342 5.9 0
+25] pe Coupled Ose ee ee
+JSSC19 Ref. Ext. Source*
+1x4 Patch Ant. 1.
+U7 room | frat | srs| 09 | 6
+TMTT16 Ext. Power’ + Patch Ant. + |
+1x8 390 10.3° 75
+18] pes Multiplier | Quartz Superstrate 90 | 103
+JSSC15
+(221 ees pee _
+JSSC12 Ref. Int. Source DAR’
+4x4 2
+26] + Mult. +ILO__| + Subs. Thinning _
+. =F
+ISSCIS | 4, | Coupled Osc Folded 317 N/A 0
+G PLL__|_Siot
+JSSC13 Slot Ant.
+8-ant. led 260 9.5 0
+[5] jBan | comeaoe. | PStom | 260 | 95
+ISSCC16 Wireless
+2 Ring Ant. 2 2.4
+20] isctntock | REAM | 296 | 24 |
+TMTT13
+21] ees | eri
+RFIC18 Manual Gate
+5x6 L Ant. 28 4.11 0
+421 votge Tanne | ran | 207 | aa
+JSSC18 Dipole Slot Ant.
+43] “_ _
+JSSC16 ; Single Source + nang Ant. 553 3.2 0
+[29] PLL, + Si Lens
+RFIC17 Circular Slot Ant.
+] _+ Multipli 43] Zs
+[19] 1 | Ose +mtnipir | CENA | ast | ass °
+EuMIC15 Single Source Slot Ant.
+l 490 N/A 0
+[30] | oe | FSi | 9 | NA
+TTST18 4. Dielectric Lens
++
+44 oe :
+
+' 438.4-to-479.1 GHz
+70.45 W at 344 GHz, 0.31-to-0.64 W for 370-to-318 GHz
+
+1.18 W at 459 GHz (center frequency),
+* 88.5 GHz input for phase shifting and i
+
+> 10 dBm input power at 100 GHz
+’ Distributed Active Radiator (DAR)
+
+Separate universal gnd and supply voltage (Vpp) planes cover
+the entire area underneath the chip using M3 and M2 metal
+layers, respectively. Moreover, a large number of gnd and
+supply pads (22 pads for each) are symmetrically placed on
+top and bottom of the chip to further minimize any undesired
+effect due to bias mismatch between array cells. The gate
+bias routing is done symmetrically underneath the gnd and
+Vpp planes using the M1 metal layer so as to minimize any
+undesired coupling to the passive structures of the array cells.
+
+Fig. 12(a) shows the configuration of the measured pro-
+totype systems. A 500-jm-thick undoped high-resistivity
+(>15 KQ-cm) silicon wafer with | in diameter was glued
+to the back side of an FR4 PCB with a hole in the middle.
+The chip was then attached to the wafer inside the hole area of
+the board. Therefore, the front side of the chip is exposed and
+gate bias and supply voltages are applied to the circuit through
+bond wires that connect the PCB tracks to the chip’s pads.
+A high-resistivity hemispherical silicon lens is attached to the
+other side of the wafer. Fig. 12(b) shows the measurement
+setup of the chip. On the receiver side, a VDI WR2.2 horn
+antenna captures the beam followed by an Erickson power
+meter for EIRP and radiated power (P,aq) measurement and a
+VDI WR2.2 even harmonic mixer (EHM) for measuring the
+
+° 3-dB power bandwidth when changing
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+LE I
+HE STATE OF THE ART
+
+n
+
+a)
+
+US)
+
+1.
+ny
+
+DC-to-THz
+
+Peg EIRP Poc Bificieney L£{X MHz} Area Technology
+(dBm) | (dBm) (W) () (dBc/Hz) | (mm’) (fax)
+Bch | eet 5 04 65nm CMOS
+12 193 (10 MHz) (340GHz)
+pst [49 | oar | 90 | onne woes
+—
+40nm CM
+45nm SOI CMOS
+pee [a [ese [> a
+45nm SOI CMOS
+| 09 | 139 | 4, -79 130nm SiGe
+22.5 (1 MHz) (280 GHz)
+of e [ coo
+65nm CMOS
+65nm CMOS
+9 24.1 1.88 N/A “OA)
+130nm Si
+130nm SiG
+28nm CMOS
+
+47 W at 448 GHz (peak-EIRP), 2.34 W at 438.4 W and 0.38 W at 479.1 GHz (bandwidth boundaries)
+ection locking
+
+input frequency
+
+frequency, phase noise, and radiation patterns of the circuit.
+Fig. 12(c) shows a snapshot of the measurement setup where
+the lens is placed inside the XY translation mount device and
+its position 1s adjusted based on the received power by the
+EHM.
+
+In order to experimentally find the best choice for Lex,
+we altered Lex, by adding 500-uwm-thick wafers between the
+Si lens and the original wafer that is attached to the board.
+For each value of Lext, we re-adjusted the lens position to
+maximize the received power by the EHM and recorded
+its magnitude for different values of Lex; for comparison.
+We carried out this procedure for two separate lenses with
+Rens = 5 mm and Rens = 12.5 mm. For Reps = 5 mm
+[Fig. 13(a)], the received power levels versus Lex for different
+distances (d) between the transmitter chip and the receiver
+antenna are shown in Fig. 13(b). It can be seen that maximum
+power is received with Lexy = 1.5 mm. We therefore carried
+out the rest of the measurements for Rien, = 5 mm with this
+choice of Lex. We then proceeded to measure the received
+power versus d in order to find the appropriate far-field
+distance by comparing its variation with the Friis transmission
+equation. The measured normalized received power versus dis-
+
+tance is shown in Fig. 13(c). It shows that the radiated power
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+JALILI AND MOMENI: 0.46-THz 25-ELEMENT SCALABLE AND WIDEBAND RAL
+
+follows the Friis equation from about d = 14 cm. Therefore,
+we used this distance for far-field measurements of the array,
+including characterizations of radiation patterns, EIRP, and
+Praq. Fig. 13(d) and (e) shows the measured radiation patterns
+of the array at a 14 cm distance in the E- and H-planes,
+respectively.
+
+Following a similar procedure for Rjenps = 12.5 mm
+[Fig. 14(a)], we found the optimum value for Lex to be 2 mm
+as shown in Fig. 14(b) and the far-field distance to be about
+20 cm as shown in Fig. 14(c). Fig. 14(d) and (e) shows the
+measured radiation patterns of the array with Rjeps = 12.5 mm
+at 20 cm distance in the E- and H-planes, respectively.
+
+Fig. 15(a) shows the measured and simulated frequency of
+the radiated power for l- and 1.2-V supply voltages. The
+frequency can be altered from 438.4 to 479.1 GHz with a
+1.2-V supply which is equivalent to 8.9% tuning range. The
+EIRP of the circuit is measured using the received power by
+the power meter and based on Friis equation and is shown
+in Fig. 15(b) and (c) for Riens = 5 mm and Rien, = 12.5 mm
+with maximum levels of 14.8 dBm at 453 GHz and 19.3 dBm
+at 448 GHz, respectively. Fig. 15(b) also shows an estimation
+of the expected EIRP based on the simulated values for
+output power of a single UCell, the radiation efficiency of
+the folded slot antenna, and the directivity of a 4 x 4 array
+with Lexs = 1.5 mm and Rens = 5 mm. We can see that the
+measured results follow the simulated values closely. Based on
+the measured radiation patterns of the array in Figs. 13 and 14,
+the directivity, calculated using a similar approach as in [5],
+is 16.8 and 21.14 dBi for Rien, = 5 mm and Rien, = 12.5 mm,
+respectively. The radiated power (P,aq) can then be calculated
+based on the measured EIRP and directivity [Praq (dBm) =
+EIRP (dBm) — Directivity (dB)]. The peak values of Praq are
+—2.1 and —1.8 dBm for Rjens = 5 mm and Rjep,s = 12.5 mm,
+respectively.
+
+The measured power consumption of the circuit across the
+bandwidth of operation is shown in Fig. 15(d). The chip
+consumes between 380 mW at 479.1 GHz and 2.34 W at
+438.4 GHz from a 1.2-V supply. The power consumption at
+448 GHz with maximum EIRP is 1.47 W. Fig. 15(e) shows
+the measured phase noise of the radiated power within the
+bandwidth of the circuit at 1O0-MHz offset frequency. The
+minimum phase noise level 1s — 100.6 dBc/Hz at 445 GHz and
+Fig. 15(f) shows the measured spectrum of the phase noise at
+this frequency.
+
+Table I presents a performance summary of this article and
+a comparison with the state of the art and shows that we were
+able to simultaneously achieve large bandwidth and high EIRP
+well above fmax 1n a fully integrated silicon implementation.
+To our knowledge, this article has the highest EIRP and
+radiated power (P,aq) and the largest frequency tuning range
+among fully integrated silicon-based coherent sources above
+350 GHz.
+
+V. CONCLUSION
+
+In this article, we presented a 0.46-THz fully integrated
+radiator array circuit in a 65-nm CMOS process. We used a
+scalable structure to extend the size of the array. This structure
+consists of coupled standing wave harmonic oscillators without
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+ATOR ARRAY WITH OPTIMIZED LENS INTEGRATION Pee be
+
+extra loss and parasitics due to the coupling of oscillators.
+The radiation directivity is maximized by employing an opti-
+mized lens integrated radiation setup and a wide bandwidth
+of operation was achieved using a varactor-less frequency
+tuning method. As a result, to the best of our knowledge,
+the implemented circuit demonstrates the highest EIRP and
+radiated power (P,aq) and the largest frequency tuning range
+among fully integrated silicon-based coherent sources above
+350 GHz.
+
+REFERENCES
+
+[1] P. H. Siegel, “Terahertz technology,’ JEEE Trans. Microw. Theory
+Techn., vol. 50, no. 3, pp. 910-928, Mar. 2002.
+
+[2] S. P. Voinigescu, S. Shopov, J. Bateman, H. Farooq, J. Hoffman, and
+K. Vasilakopoulos, “Silicon millimeter-wave, terahertz, and high-speed
+fiber-optic device and benchmark circuit scaling through the 2030 ITRS
+horizon,” Proc. IEEE, vol. 105, no. 6, pp. 1087-1104, Jun. 2017.
+
+[3] C. Wang and R. Han, “Dual-terahertz-comb spectrometer on CMOS
+for rapid, wide-range gas detection with absolute specificity,’ JEEE
+J. Solid-State Circuits, vol. 52, no. 12, pp. 3361-3372, Dec. 2017.
+
+[4] X. Wu and K. Sengupta, “On-chip THz spectroscope exploiting elec-
+tromagnetic scattering with multi-port antenna,’ JEEE J. Solid-State
+Circuits, vol. 51, no. 12, pp. 3049-3062, Dec. 2016.
+
+[5S] R. Han and E. Afshari, “A CMOS high-power broadband 260-GHz
+radiator array for spectroscopy,” JEEE J. Solid-State Circuits, vol. 48,
+no. 12, pp. 3090-3104, Dec. 2013.
+
+[6] R. Han et al., “A SiGe terahertz heterodyne imaging transmitter with
+3.3 mW radiated power and fully-integrated phase-locked loop,’ [EEE
+J. Solid-State Circuits, vol. 50, no. 12, pp. 2935-2947, Dec. 2015.
+
+[7] P. Hillger, J. Grzyb, R. Jain, and U. R. Pfeiffer, “Terahertz imaging and
+sensing applications with silicon-based technologies,’ JEEE Trans. THz
+Sci. Technol., vol. 9, no. 1, pp. 1-19, Jan. 2019.
+
+[8] M. Uzunkol, O. D. Gurbuz, F. Golcuk, and G. M. Rebeiz, “A 0.32 THz
+SiGe 4x4 imaging array using high-efficiency on-chip antennas,” JEEE
+J. Solid-State Circuits, vol. 48, no. 9, pp. 2056—2066, Sep. 2013.
+
+[9] T. Chi, M.-Y. Huang, S. Li, and H. Wang, “17.7 a packaged 90-to-
+300GHz transmitter and 115-to-325GHz coherent receiver in CMOS for
+full-band continuous-wave mm-wave hyperspectral imaging,’ in JEEE
+Int. Solid-State Circuits Conf. (ISSCC) Dig. Tech. Papers, San Francisco,
+CA, USA, Feb. 2017, pp. 304-305.
+
+[10] C.-H. Li, C.-L. Ko, M.-C. Kuo, and D.-C. Chang, “A 340-GHz hetero-
+dyne receiver front end in 40-nm CMOS for THz biomedical imaging
+applications,’ JEEE Trans. THz Sci. Technol., vol. 6, no. 4, pp. 625-636,
+Jul. 2016.
+
+[11] A. Mostajeran, A. Cathelin, and E. Afshari, “A 170-GHz fully integrated
+single-chip FMCW imaging radar with 3-D imaging capability,” /EEE
+J. Solid-State Circuits, vol. 52, no. 10, pp. 2721-2734, Oct. 2017.
+
+[12] A. Visweswaran et al., “9.4 a 145GHz FMCW-radar transceiver in 28nm
+CMOS,” in JEEE Int. Solid-State Circuits Conf. (ISSCC) Dig. Tech.
+Papers, San Francisco, CA, USA, Feb. 2019, pp. 168-169.
+
+[13] K. Katayama et al., “A 300 GHz CMOS transmitter with 32-QAM
+17.5 Gb/s/ch capability over six channels,” JEEE J. Solid-State Circuits,
+vol. 51, no. 12, pp. 3037-3048, Dec. 2016.
+
+[14] S. Kang, S. V. Thyagarajan, and A. M. Niknejad, “A 240 GHz
+fully integrated wideband QPSK transmitter in 65 nm CMOS,” JEEE
+J. Solid-State Circuits, vol. 50, no. 10, pp. 2256-2267, Oct. 2015.
+
+[15] S. V. Thyagarajan, S. Kang, and A. M. Niknejad, “A 240 GHz fully
+integrated wideband QPSK receiver in 65 nm CMOS,” JEEE J. Solid-
+State Circuits, vol. 50, no. 10, pp. 2268-2280, Oct. 2015.
+
+[16] S. Lee et al., “9.5 an 80Gb/s 300GHz-band single-chip CMOS trans-
+ceiver,’ in IEEE Int. Solid-State Circuits Conf. (ISSCC) Dig. Tech.
+Papers, San Francisco, CA, USA, Feb. 2019, pp. 170-172.
+
+[17] K. Guo, Y. Zhang, and P. Reynaert, “A 0.53-THz subharmonic injection-
+locked phased array with 63-4 w radiated power in 40-nm CMOS,”
+IEEE J. Solid-State Circuits, vol. 54, no. 2, pp. 380-391, Feb. 2019.
+
+[18] Y. Yang, O. D. Gurbuz, and G. M. Rebeiz, “An _ eight-element
+370-410-GHz phased-array transmitter in 45-nm CMOS SOI with peak
+EIRP of 8-8.5 dBm,” JEEE Trans. Microw. Theory Techn., vol. 64,
+no. 12, pp. 4241-4249, Dec. 2016.
+
+[19] P. Hillger, J. Grzyb, S. Malz, B. Heinemann, and U. Pfeiffer, “A lens-
+integrated 430 GHz SiGe HBT source with up to 6.3 dBm radiated
+power,’ in Proc. IEEE Radio Freg. Integr. Circuits Symp. (RFIC),
+Honolulu, HI, USA, Jun. 2017, pp. 160-163.
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
+2400
+
+[20] S. Jameson, E. Halpern, and E. Socher, “20.4 a 300GHz wirelessly
+locked 2-3 array radiating 5.4dBm with 5.1% DC-to-RF efficiency in
+65nm CMOS,” in JEEE Int. Solid-State Circuits Conf. (ISSCC) Dig.
+Tech. Papers, San Francisco, CA, USA, Jan. 2016, pp. 348-349.
+
+[21] Y.-J. Chen and T.-S. Chu, “2-D direct-coupled standing-wave oscil-
+lator arrays,’ IEEE Trans. Microw. Theory Techn., vol. 61, no. 12,
+pp. 4472-4482, Dec. 2013.
+
+[22] Y. Tousi and E. Afshari, “A high-power and scalable 2-D phased array
+for terahertz CMOS integrated systems,’ JEEE J. Solid-State Circuits,
+vol. 50, no. 2, pp. 597-609, Feb. 2015.
+
+[23] H. Jalili and O. Momeni, “17.10 a 318-to-370GHz standing-wave 2D
+phased array in 0.13 wm BiCMOS,” in JEEE Int. Solid-State Circuits
+Conf. (ISSCC) Dig. Tech. Papers, San Francisco, CA, USA, Feb. 2017,
+pp. 310-311.
+
+[24] H. Jalili and O. Momeni, “A 0.34-THz wideband wide-angle 2-D
+steering phased array in 0.13-4~ m SiGe BiCMOS,” [EEE J. Solid-State
+Circuits, vol. 54, no. 9, pp. 2449-2461, Sep. 2019.
+
+[25] H. Jalili and O. Momeni, “A standing-wave architecture for scalable
+and wideband millimeter-wave and terahertz coherent radiator arrays,”
+IEEE Trans. Microw. Theory Techn., vol. 66, no. 3, pp. 1597-1609,
+Mar. 2018.
+
+[26] K. Sengupta and A. Hajimiri, “A 0.28 THz power-generation and beam-
+steering array in CMOS based on distributed active radiators,” JEEE J.
+Solid-State Circuits, vol. 47, no. 12, pp. 3013-3031, Dec. 2012.
+
+[27] Y. Zhao et al., “A 0.54-0.55 THz 24 coherent source array with EIRP
+of 24.4 dBm in 65nm CMOS technology,” in JEEE MTT-S Int. Microw.
+Symp. Dig., Phoenix, AZ, USA, May 2015, pp. 1-3.
+
+[28] U. R. Pfeiffer et al., “A 0.53 THz reconfigurable source module
+with up to | mW radiated power for diffuse illumination in terahertz
+imaging applications,’ JEEE J. Solid-State Circuits, vol. 49, no. 12,
+pp. 2938-2950, Dec. 2014.
+
+[29] Y. Zhao et al., “A 0.56 THz phase-locked frequency synthesizer in 65
+nm CMOS technology,” JEEE J. Solid-State Circuits, vol. 51, no. 12,
+pp. 3005-3019, Dec. 2016.
+
+[30] P. Hillger, J. Grzyb, R. Lachner, and U. Pfeiffer, “An antenna-coupled
+0.49 THz SiGe HBT source for active illumination in terahertz imaging
+applications,’ in Proc. 10th Eur. Microw. Integr. Circuits Conf. (EuMIC),
+Paris, France, Sep. 2015, pp. 180-183.
+
+[31] H. Jalili and O. Momeni, “A 219-to-238-GHz coupled standing-wave
+VCO with 3.4-dBm peak output power in 65nm CMOS,” in Proc. IEEE
+Custom Integr. Circuits Conf. (CICC), Austin, TX, USA, Apr. 2019,
+pp. 1-4.
+
+[32] H. Jalili and O. Momeni, “A 230-GHz high-power and wideband coupled
+standing wave VCO in 65-nm CMOS,” JEEE J. Solid-State Circuits,
+vol. 55, no. 3, pp. 547-556, Mar. 2020.
+
+[33] D. Pozar, “Considerations for millimeter wave printed antennas,’ JEEE
+Trans. Antennas Propag., vol. 31, no. 5, pp. 740-747, Sep. 1983.
+
+[34] G. M. Rebeiz, “Miullimeter-wave and terahertz integrated circuit anten-
+nas,’ Proc. IEEE, vol. 80, no. 11, pp. 1748-1770, Nov. 1992.
+
+[35] A. Safaripour, B. Asghari, M. R. M. Hashemi, and A. Hajimiri,
+“Proximal-field sensing: /n situ prediction of far-field radiation for
+integrated radiators,” JEEE Trans. Microw. Theory Techn., vol. 67, no. 9,
+pp. 3743-3756, Sep. 2019.
+
+[36] J. M. Edwards and G. M. Rebeiz, “High-efficiency elliptical slot anten-
+nas with quartz superstrates for silicon RFICs,” JEEE Trans. Antennas
+Propag., vol. 60, no. 11, pp. 5010-5020, Nov. 2012.
+
+[37] H.-C. Chang, X. Cao, U. K. Mishra, and R. A. York, “Phase noise
+in coupled oscillators: Theory and experiment,” JEEE Trans. Microw.
+Theory Techn., vol. 45, no. 5, pp. 604-615, May 1997.
+
+[38] A. Babakhani, X. Guan, A. Komiani, A. Natarajan, and A. Hajimiri,
+“A 77-GHz phased-array transceiver with on-chip antennas in silicon:
+Receiver and antennas,” JEEE J. Solid-State Circuits, vol. 41, no. 12,
+pp. 2795-2806, Dec. 2006.
+
+[39] D. F. Filipovic, S. S. Gearhart, and G. M. Rebeiz, “Double-slot anten-
+nas on extended hemispherical and elliptical silicon dielectric lenses,”
+IEEE Trans. Microw. Theory Techn., vol. 41, no. 10, pp. 1738-1749,
+Oct. 1993.
+
+[40] D. F. Filipovic, G. P. Gauthier, S. Raman, and G. M. Rebeiz, “Off-axis
+properties of silicon and quartz dielectric lens antennas,’ JEEE Trans.
+Antennas Propag., vol. 45, no. 5, pp. 760-766, May 1997.
+
+[41] M. Alonso-delPino, C. Jung-Kubiak, T. Reck, N. Llombart, and
+G. Chattopadhyay, “Beam scanning of silicon lens antennas using
+integrated piezomotors at submillimeter wavelengths,’ JEEE Trans.
+Terahertz Sci. Technol., vol. 9, no. 1, pp. 47-54, Jan. 2019.
+
+[42] N. Buadana, S. Jameson, and E. Socher, “A 280GHz +9dBm TRP
+dense 2D multi port radiator in 65nm CMOS,” in Proc. [EEE Radio
+Freq. Integr. Circuits Symp. (RFIC), Philadelphia, PA, USA, Jun. 2018,
+pp. 248-251.
+
+Authorized licensed use limited to: TUBITAK ULAKBIM. Downloaded o
+
+TEEE JOURNAL OF SOLID-STATE CIRCUITS, VOL. 55, NO. 9, SEPTEMBER 2020
+
+[43] Z. Hu, M. Kaynak, and R. Han, “High-power radiation at | THz in
+silicon: A fully scalable array using a multi-functional radiating mesh
+structure,” JEEE J. Solid-State Circuits, vol. 53, no. 5, pp. 1313-1327,
+May 2018.
+
+[44] K. Guo, A. Standaert, and P. Reynaert, “A 525-556-GHz radiating source
+with a dielectric lens antenna in 28-nm CMOS,” JEEE Trans. THz Sci.
+Technol., vol. 8, no. 3, pp. 340-349, May 2018.
+
+Hossein Jalili (Member, IEEE) received the B.Sc.
+and M.S. degrees from the Sharif University of
+Technology, Tehran, Iran, in 2009 and 2011, respec-
+tively, and the Ph.D. degree from the University of
+California at Davis, Davis, CA, USA, all in electrical
+engineering in 2019.
+
+He is currently a Post-Doctoral Researcher
+with the University of California at Davis. His
+research interests include mm-wave and_ tera-
+hertz integrated circuits and systems in silicon
+technology.
+
+Dr. Jalili was a recipient of the IEEE Solid-State Circuits Society (SSCS)
+Predoctoral Achievement Award in 2019, the 2018 IEEE Microwave Theory
+and Techniques Society (MTT-S) Graduate Fellowship Award, the 2019
+University of California at Davis’s Allen G. Marr Prize Distinguished Dis-
+sertation Award and the 2019 Electrical and Computer Engineering (ECE)
+Department’s Anil Jain Memorial Prize for Best Ph.D. Student Dissertation,
+the 2018-2019 Richard and Joy Dorf Graduate Student Award, the Univer-
+sity of California at Davis Graduate Fellowship Award in 2013, and the
+2018-2019 Summer Graduate Student Researcher (GSR) Award. He has
+served as a Reviewer for multiple technical journals, including the [EEE
+JOURNAL OF SOLID-STATE CIRCUITS, the IEEE TRANSACTIONS ON
+MICROWAVE THEORY AND TECHNIQUES, the IEEE TRANSACTIONS ON
+CIRCUITS AND SYSTEMS—I, and the IEEE TRANSACTIONS ON TERA-
+HERTZ SCIENCE AND TECHNOLOGY.
+
+Omeed Momeni (Senior Member, IEEE) received
+the B.Sc. degree from the Isfahan University of
+Technology, Isfahan, Iran, in 2002, the M.S. degree
+from the University of Southern California, Los
+Angeles, CA, USA, in 2006, and the Ph.D. degree
+from Cornell University, Ithaca, NY, USA, in 2011,
+all in electrical engineering.
+
+He joined the faculty of the Electrical and
+Computer Engineering Department, University of
+California at Davis, Davis, CA, USA, in 2011,
+where he is currently an Associate Professor. He
+was a Visiting Professor with the Electrical Engineering and Computer
+Science Department, University of California at Irvine, Irvine, CA, USA,
+from 2011 to 2012. From 2004 to 2006, he was with the National
+Aeronautics and Space Administration (NASA), Jet Propulsion Laboratory
+(JPL), Pasadena, CA, USA, as an RFIC Designer. His research interest
+includes mm-wave and terahertz integrated circuits and systems.
+
+Dr. Momeni was an Organizing Committee Member of the [IEEE
+International Workshop on Design Automation for Analog and Mixed-Signal
+Circuits in 2013. He was a recipient of the National Science Foundation
+CAREER Award in 2015, the Professor of the Year 2014 by the IEEE at
+UC Davis, the Best Ph.D. Thesis Award from the Cornell ECE Department
+in 2011, the Outstanding Graduate Award from the Association of Professors
+and Scholars of Iranian Heritage (APSIH) in 2011, the Best Student
+Paper Award at the IEEE Workshop on Microwave Passive Circuits and
+Filters in 2010, the Cornell University Jacob’s Fellowship in 2007, and the
+NASA-JPL Fellowship in 2003. He has been serving as a Distinguished
+Lecturer for the Solid-State Circuits Society (SSCS) since 2020, and a
+Technical Program Committee Member of the International Microwave
+Symposium (IMS) since 2017 and the Radio Frequency Integrated Circuits
+(RFIC) Symposium since 2018. He has also served as an Associate Editor
+for the IEEE TRANSACTIONS ON MICROWAVE THEORY AND TECHNIQUES
+(TMTT) from 2018 to 2020. He was the Chair of the IEEE Ithaca GOLD
+Section from 2008 to 2011.
+
+n May 01,2023 at 08:19:52 UTC from IEEE Xplore. Restrictions apply.
